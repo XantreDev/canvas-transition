@@ -88,39 +88,6 @@ export const getIntermidiate = (previousPoints, newPoints, k, timing = (k) => k)
     })
   })
 )
-// export const getIntermidiate = (previousPoints, newPoints, mergeResult, k, timing = (k) => k) => {
-//     const [newPointsPositions, oldPointsTargets, stretch] = mergeResult
-
-//     const originalPoints = stretch ? newPoints : previousPoints
-//     const mainPoints = !stretch ? newPoints : previousPoints
-//     const deltaSign = stretch ? -1 : 1
-//     console.log(mainPoints)
-//     console.log(originalPoints)
-//     console.log(newPointsPositions)
-//     console.log(oldPointsTargets)
-
-//     const intermidiatePoints = originalPoints
-//         .map(([originalX, originalY], index) => {
-//             if (newPointsPositions[index] === -1) return [originalX, originalY]
-//             const [x, y] = mainPoints[newPointsPositions[index]]
-//             const deltaY = deltaSign * (y - originalY)
-//             const deltaX = deltaSign * (x - originalX)
-
-//             return [originalX + deltaX * timing(k), originalY + deltaY * timing(k)]
-//         })
-//         .map(([originalX, originalY], index, array) => {
-//             if (oldPointsTargets[index] === -1) return [originalX, originalY]
-//             const [x, y] = array[newPointsPositions[oldPointsTargets[index]]]
-//             const deltaY = deltaSign * (y - originalY)
-//             const deltaX = deltaSign * (x - originalX)
-        
-//             const position = stretch ? 1 - timing(k) : timing(k)
-//             // const position = timing(k)
-            
-//             return [originalX + deltaX * position, originalY + deltaY * position]
-//         })
-//     return intermidiatePoints
-// }
 
 export const getRandom = (min, max, step = 1) => {
     const delta = max - min
@@ -156,9 +123,6 @@ export const mergePoints = (oldPoints, newPoints) => {
   const xTargets = xDeltas.map(arr => arr.indexOf(Math.min(...arr)))
 
   const tmp = Array(morePoints.length).fill()
-  // xTargets.forEach((targetIndex, index) => {
-  //   tmp[targetIndex] = lessPoints[index]
-  // })
 
   let i = 0
   const result = tmp.map((_, index) => {
@@ -178,99 +142,4 @@ export const mergePoints = (oldPoints, newPoints) => {
     oldPoints: oldPoints.length <= newPoints.length ? result : morePoints,
     newPoints: oldPoints.length <= newPoints.length ? morePoints : result
   }
-
-  // tmp.map((value, index) => {
-  //   if (xTargets[i] > index) {
-      
-  //   } else {
-  //     return value
-  //   }
-  // })
-  // const result = tmp.map((item, index) => {
-  //   if (item && typeof item[0] === 'number') {
-  //     return item
-  //   }
-
-    
-  //   const [xM] = morePoints[index]
-
-  // })
-
-    
 }
-
-// export const mergePoints = (oldPoints, newPoints) => {
-//     // if (previousPoints.length >= newPoints.length) {
-//     const [maximal, minimal] = oldPoints.length >= newPoints.length 
-//         ? [oldPoints.length, newPoints.length] 
-//         : [newPoints.length, oldPoints.length]
-    
-//     const targetIndexes = Array(maximal).fill(-1)
-//     // let selected = 0
-//     const newPointsPositions = getUniqueRandoms(minimal, maximal)
-    
-//     let lastIndex = 0
-//     newPointsPositions.forEach((value, index) => {
-//         targetIndexes[value] = lastIndex++
-//     })
-//     const firstNew = targetIndexes.findIndex((element) => element !== -1)
-//     const lastNew = targetIndexes.length - 1 - targetIndexes.reverse().findIndex((element) => element !== -1)
-//     console.log(firstNew, lastNew)
-//     targetIndexes.reverse()
-
-//     const oldPointsTargets = new Array(maximal).fill(-1).map((value, index) => {
-//         if (targetIndexes[index] !== -1)
-//         {
-//             return value
-//         }
-
-//         if (index < firstNew) {
-//             return firstNew
-//         }
-//         if (index > lastNew) {
-//             return lastNew
-//         }
-
-//         const leftOrRight = getRandom(-1, 1, 2) 
-//         // console.log(leftOrRight)
-
-//         let delta = leftOrRight
-//         while (targetIndexes[delta + index] === -1){
-//             delta += leftOrRight
-//         }
-
-//         return index + delta
-//     })
-
-//     return [targetIndexes, oldPointsTargets, maximal === newPoints.length ? true : false]
-
-//         // const targetIndexes = Array(oldPoints.length).fill(-1)
-//         // // let selected = 0
-//         // const newPointsPositions = getUniqueRandoms(newPoints.length, oldPoints.length)
-//         // newPointsPositions.forEach((value, index) => {
-//         //     targetIndexes[value] = value
-//         // })
-        
-//         // const oldPointsTargets = new Array(targetIndexes.length).fill(-1).map((value, index) => {
-//         //     if (newPointsPositions[index] !== -1)
-//         //     {
-//         //         return value
-//         //     }
-
-//         //     const leftOrRight = Math.floor(Math.random() * 2) - 1
-
-//         //     if (newPointsPositions[index + leftOrRight] !== undefined) {
-//         //         return index + leftOrRight
-//         //     }
-
-//         //     if (newPointsPositions[index + leftOrRight] === undefined) {
-//         //         return index - leftOrRight
-//         //     }
-//         // })
-
-//         // return [newPointsPositions, oldPointsTargets]
-//     // }
-
-//     // else {
-//     // }
-// }
